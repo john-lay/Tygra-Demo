@@ -77,7 +77,7 @@ public class RelativeMovement : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump"))
             {
-                Debug.Log("Jump pressed...");
+                //Debug.Log("Jump pressed...");
                 _vertSpeed = jumpSpeed;
                 _animator.SetBool("Jumping", true);
             }
