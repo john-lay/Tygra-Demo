@@ -18,14 +18,14 @@ public class LiftMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float _posY = transform.position.y;
+        float posY = transform.position.y;
 
         if (canMoveUp)
         {
-            _posY += 0.1f;
-            lift.transform.position = new Vector3(lift.transform.position.x, _posY, lift.transform.position.z);
+            posY += 0.1f;
+            lift.transform.position = new Vector3(lift.transform.position.x, posY, lift.transform.position.z);
             
-            if (_posY >= firstFloor)
+            if (posY >= firstFloor)
             {
                 canMoveUp = false;                
             }
@@ -33,10 +33,10 @@ public class LiftMovement : MonoBehaviour
 
         if (canMoveDown)
         {
-            _posY -= 0.1f;
-            lift.transform.position = new Vector3(lift.transform.position.x, _posY, lift.transform.position.z);
+            posY -= 0.1f;
+            lift.transform.position = new Vector3(lift.transform.position.x, posY, lift.transform.position.z);
 
-            if (_posY <= groundFloor)
+            if (posY <= groundFloor)
             {
                 canMoveDown = false;
             }
