@@ -82,6 +82,7 @@
     <Compile Include="Assets\LiftMovement.cs" />
     <Compile Include="Assets\OrbitCamera.cs" />
     <Compile Include="Assets\RelativeMovement.cs" />
+    <Compile Include="Assets\RotateCoin.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
