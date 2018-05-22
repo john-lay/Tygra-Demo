@@ -28,7 +28,7 @@ public class ThundertankDriving : MonoBehaviour
 
             // align tygra with thundertank and point him towards the tip of the tank
             tygra.transform.position = thundertank.transform.position;
-            tygra.transform.position = new Vector3(tygra.transform.position.x, tygra.transform.position.y, tygra.transform.position.z + 0.1f); // prevent his head from falling through the chair
+            tygra.transform.position = new Vector3(tygra.transform.position.x, tygra.transform.position.y, tygra.transform.position.z - 0.1f); // prevent his head from falling through the chair
             GameObject thundertankTip = GameObject.Find("ThundertankTip");
             tygra.transform.LookAt(thundertankTip.transform);
 

@@ -78,11 +78,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CoinCounter.cs" />
     <Compile Include="Assets\CollectCoin.cs" />
-    <Compile Include="Assets\ControlRoomButton.cs" />
     <Compile Include="Assets\LiftMovement.cs" />
     <Compile Include="Assets\OrbitCamera.cs" />
     <Compile Include="Assets\RelativeMovement.cs" />
+    <Compile Include="Assets\RightClaw.cs" />
     <Compile Include="Assets\RotateCoin.cs" />
     <Compile Include="Assets\ThundertankDriving.cs" />
   </ItemGroup>

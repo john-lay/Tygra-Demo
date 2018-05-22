@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 
-public class ControlRoomButton : MonoBehaviour
+public class RightClaw : MonoBehaviour
 {
-    private GameObject button;
     private GameObject rightClaw;
-    private bool canMoveButton;
     private bool canMoveClaw;
     
     private float maxRotationDegrees = 15.0f;
@@ -14,8 +12,7 @@ public class ControlRoomButton : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        button = gameObject;
-        rightClaw = GameObject.Find("RightClawWrapper");
+        rightClaw = gameObject;
         maxRotationRadians = maxRotationDegrees * Mathf.Deg2Rad;
     }
 
@@ -35,25 +32,10 @@ public class ControlRoomButton : MonoBehaviour
                 canMoveClaw = false;
             }
         }
-
-        // animate button press
-        float posY = button.transform.position.y;
-
-        if (canMoveButton)
-        {
-            posY -= 0.001f;
-            button.transform.position = new Vector3(button.transform.position.x, posY, button.transform.position.z);
-
-            if (posY <= minButtonPosition)
-            {
-                canMoveButton = false;
-            }
-        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Open()
     {
         canMoveClaw = true;
-        canMoveButton = true;
     }
 }
