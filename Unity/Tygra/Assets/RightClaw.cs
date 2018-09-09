@@ -7,7 +7,6 @@ public class RightClaw : MonoBehaviour
     
     private float maxRotationDegrees = 15.0f;
     private float maxRotationRadians;
-    private float minButtonPosition = 0.45f;
 
     // Use this for initialization
     void Start()
