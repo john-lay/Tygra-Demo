@@ -9,3 +9,5 @@ build/
 Unity/Tygra/Library/il2cpp_cache/
 Unity/Tygra/Library/ShaderCache/
 Unity/Tygra/Library/webgl_cache/
+Unity/Tygra/Temp
+Unity/Tygra/.vscode
