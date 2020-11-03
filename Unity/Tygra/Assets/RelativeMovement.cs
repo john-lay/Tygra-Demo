@@ -113,7 +113,14 @@ public class RelativeMovement : MonoBehaviour
                 }
             }
         }
-        movement.y = _vertSpeed;
+
+        // prevent the player from jumping when driving
+        GameObject thundertank = GameObject.Find("Thundertank");
+        ThundertankDriving thundertankDriving  = thundertank.GetComponent<ThundertankDriving>();
+        // Debug.Log(thundertankDriving.canDrive);
+        if(!thundertankDriving.canDrive) {
+            movement.y = _vertSpeed;
+        }
 
         movement *= Time.deltaTime;
         _charController.Move(movement);

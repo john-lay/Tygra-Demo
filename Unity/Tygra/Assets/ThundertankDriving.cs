@@ -5,7 +5,7 @@ public class ThundertankDriving : MonoBehaviour
     private Animator animator;
     private GameObject thundertank;
     private GameObject tygra;
-    private bool canDrive;
+    public bool canDrive;
     private bool isDriving;
     private float originalSpeed;
 
