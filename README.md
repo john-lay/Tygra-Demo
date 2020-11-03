@@ -9,6 +9,7 @@ The game can be played in the browser
 * __Interact__ `enter`
 * __Move__ `wasd`/`arrow keys`
 * __Rotate Camera__ `mouse`
+* __Enter Vehicle__ `alt`
 
 ## Objective
-Collect all the _thunder-coins_ scattered around the cats lair!
+Collect all the _thunder-coins_ scattered around the cats' lair!
