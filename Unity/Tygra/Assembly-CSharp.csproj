@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\CoinCounter.cs" />
      <Compile Include="Assets\CollectCoin.cs" />
+     <Compile Include="Assets\EventManager.cs" />
      <Compile Include="Assets\LiftMovement.cs" />
      <Compile Include="Assets\OrbitCamera.cs" />
      <Compile Include="Assets\RelativeMovement.cs" />

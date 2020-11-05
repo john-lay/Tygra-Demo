@@ -25,9 +25,26 @@ public class RelativeMovement : MonoBehaviour
     private CharacterController _charController;
     private Animator _animator;
 
+    private EventManager eventManager;
+
+    private bool canJump;
+
+    void Awake()
+    {
+        GameObject eventManager = GameObject.Find("EventManager");
+        this.eventManager = eventManager.GetComponent<EventManager>();
+        this.eventManager.OnDrivingChanged += HandleDrivingChanged;
+    }
+
+    void HandleDrivingChanged(bool isDriving)
+    {
+        this.canJump = !isDriving;
+    }
+
     // Use this for initialization
     void Start()
     {
+        this.canJump = true;
         _vertSpeed = minFall;
 
         _charController = GetComponent<CharacterController>();
@@ -115,10 +132,8 @@ public class RelativeMovement : MonoBehaviour
         }
 
         // prevent the player from jumping when driving
-        GameObject thundertank = GameObject.Find("Thundertank");
-        ThundertankDriving thundertankDriving  = thundertank.GetComponent<ThundertankDriving>();
-        // Debug.Log(thundertankDriving.canDrive);
-        if(!thundertankDriving.canDrive) {
+        if (this.canJump)
+        {
             movement.y = _vertSpeed;
         }
 
