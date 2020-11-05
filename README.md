@@ -1,4 +1,5 @@
-# Tygra Demo
+![Tygra logo](https://github.com/john-lay/tygra-demo/raw/develop/website/logo-text.png)
+\
 Thundercats inspired 3D game demo developed in Unity
 
 See it in action and have a go [here](http://john-lay.github.io/games/tygra/)
