@@ -54,6 +54,7 @@
      <Compile Include="Assets\RelativeMovement.cs" />
      <Compile Include="Assets\RightClaw.cs" />
      <Compile Include="Assets\RotateCoin.cs" />
+     <Compile Include="Assets\TextboxManager.cs" />
      <Compile Include="Assets\ThundertankDriving.cs" />
      <Compile Include="Assets\WilykatInteraction.cs" />
  <Reference Include="Facebook.Unity.Settings">
