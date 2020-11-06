@@ -55,6 +55,7 @@
      <Compile Include="Assets\RightClaw.cs" />
      <Compile Include="Assets\RotateCoin.cs" />
      <Compile Include="Assets\ThundertankDriving.cs" />
+     <Compile Include="Assets\WilykatInteraction.cs" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>D:/Repo/Tygra-Demo/Unity/Tygra/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
