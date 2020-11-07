@@ -12,6 +12,11 @@ public class TextboxManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        string filePath = Application.dataPath + "/GUI/dialogue.en.json";
+        string jsonString = System.IO.File.ReadAllText(Application.dataPath + "/GUI/dialogue.en.json");
+        SceneDialogue sceneDialogue = JsonUtility.FromJson<SceneDialogue>(jsonString);
+        Debug.Log(sceneDialogue.conversations[0].dialogue[0].title);
+
         this.textboxContainer = gameObject;
         List<Image> images = new List<Image>(this.textboxContainer.GetComponentsInChildren<Image>());
 
