@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +8,8 @@ public class TextboxManager : MonoBehaviour
     private GameObject textboxContainer;
     private Image textboxBg;
     private Image wilykatPortrait;
+    private Text Title;
+    private Text Text;
     private bool visible;
     // Use this for initialization
     void Start()
@@ -28,8 +30,16 @@ public class TextboxManager : MonoBehaviour
         if (images.Exists(img => img.name == "WilykatPortrait"))
         {
             this.wilykatPortrait = images.Find(img => img.name == "WilykatPortrait");
-        }
+        List<Text> texts = new List<Text>(this.textboxContainer.GetComponentsInChildren<Text>());
 
+        if (texts.Exists(txt => txt.name == "Title"))
+            this.Title = texts.Find(txt => txt.name == "Title");
+
+        if (texts.Exists(txt => txt.name == "Text"))
+            this.Text = texts.Find(txt => txt.name == "Text");
+
+        // hide text box
+        this.ToggleVisibility();
     }
 
     // Update is called once per frame
@@ -42,6 +52,8 @@ public class TextboxManager : MonoBehaviour
     {
         this.textboxBg.enabled = this.visible;
         this.wilykatPortrait.enabled = this.visible;
+        this.Title.enabled = this.visible;
+        this.Text.enabled = this.visible;
         this.visible = !this.visible;
     }
 }
