@@ -5,14 +5,14 @@
             "alias": "Wilykit Interaction",
             "dialogue": [
                 {
-                    "portrait": "Wilykat",
+                    "portrait": "WilykatPortrait",
                     "title": "Wilykat",
                     "text": [
                         "Hi Tygra, it’s good to see you! Once you collect 5 Thundercoins, the right claw of the Cats’ Lair will open and you will be able to access the Thundertank. You can get behind the wheel by pressing the ALT key when you’re next to the driver’s seat."
                     ]
                 },
                 {
-                    "portrait": "Tygra",
+                    "portrait": "TygraPortrait",
                     "title": "Tygra",
                     "text": [
                         "Thanks for the intel Wilykat, it’s good to see you too!"
