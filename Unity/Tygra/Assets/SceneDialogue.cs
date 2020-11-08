@@ -11,8 +11,7 @@ public class Dialogue
 [System.Serializable]
 public class Conversation
 {
-    public string id;
-
+    public int id;
     public string alias;
     public List<Dialogue> dialogue;
 }
@@ -21,4 +20,11 @@ public class Conversation
 public class SceneDialogue
 {
     public List<Conversation> conversations;
+}
+
+public class LinearDialogue
+{
+    public string portrait;
+    public string title;
+    public string text;
 }
