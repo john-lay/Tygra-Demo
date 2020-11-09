@@ -9,6 +9,14 @@ public class ThundertankDriving : MonoBehaviour
     private bool isDriving;
     private float originalSpeed;
 
+    private EventManager eventManager;
+
+    void Awake()
+    {
+        GameObject eventManager = GameObject.Find("EventManager");
+        this.eventManager = eventManager.GetComponent<EventManager>();
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -76,12 +84,18 @@ public class ThundertankDriving : MonoBehaviour
             animator = tygra.GetComponent<Animator>();
             originalSpeed = tygra.GetComponent<RelativeMovement>().moveSpeed;
 
-            canDrive = true;
+            this.updateDriving(true);
         }
+    }
+
+    private void updateDriving(bool isDriving)
+    {
+        this.canDrive = isDriving;
+        this.eventManager.UpdateDriving(isDriving);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        canDrive = false;
+        this.updateDriving(false);
     }
 }
