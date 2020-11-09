@@ -53,9 +53,12 @@ public class WilykatInteraction : MonoBehaviour
         }
 
         // follow tygra around the room
-        targetPoint = new Vector3(tygra.transform.position.x, transform.position.y, tygra.transform.position.z) - transform.position;
-        targetRotation = Quaternion.LookRotation(targetPoint, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2.0f);
+        if (this.tygra != null)
+        {
+            targetPoint = new Vector3(tygra.transform.position.x, transform.position.y, tygra.transform.position.z) - transform.position;
+            targetRotation = Quaternion.LookRotation(targetPoint, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2.0f);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
