@@ -14,6 +14,10 @@ public class WilykatInteraction : MonoBehaviour
     private TextboxManager textboxManager;
 
     private int currentPage;
+    private Animator animator;
+
+    private Vector3 targetPoint;
+    private Quaternion targetRotation;
     // Use this for initialization
     void Start()
     {
@@ -21,6 +25,7 @@ public class WilykatInteraction : MonoBehaviour
         GameObject textboxContainer = GameObject.Find("TextboxContainer");
         this.textboxManager = textboxContainer.GetComponent<TextboxManager>();
         this.currentPage = 0;
+        this.animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -46,16 +51,23 @@ public class WilykatInteraction : MonoBehaviour
                 }
             }
         }
+
+        // follow tygra around the room
+        targetPoint = new Vector3(tygra.transform.position.x, transform.position.y, tygra.transform.position.z) - transform.position;
+        targetRotation = Quaternion.LookRotation(targetPoint, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2.0f);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         this.tygra = other.gameObject;
         this.interact = true;
+        this.animator.SetBool("Interacting", interact);
     }
 
     private void OnTriggerExit(Collider other)
     {
         this.interact = false;
+        this.animator.SetBool("Interacting", false);
     }
 }
