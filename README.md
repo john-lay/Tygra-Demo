@@ -14,3 +14,19 @@ The game can be played in the browser
 
 ## Objective
 Collect all the _thunder-coins_ scattered around the cats' lair!
+
+\
+\
+\
+\
+
+# Developer Notes
+## Exporting from Blender
+- Open blender 
+- (not sure if you need this step) click on the texture icon (red and white patchwork)
+- Export as wavefront obj file
+- Open Autodesk FBX converter
+	- drop obj into left hand panel
+	- ensure embed media is checked
+	- export as fbx
+- upload to Miximo
