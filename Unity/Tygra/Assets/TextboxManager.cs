@@ -67,42 +67,43 @@ public class TextboxManager : MonoBehaviour
         this.visible = !this.visible;
     }
 
-    public bool SceneExists(int sceneId)
+    public bool ConversationExists(int conversationId)
     {
-        return this.sceneDialogue.conversations.Exists(con => con.id == sceneId);
+        return this.sceneDialogue.conversations.Exists(con => con.id == conversationId);
     }
 
-    public bool SceneExists(string sceneAlias)
+    public bool ConversationExists(string conversationAlias)
     {
-        return this.sceneDialogue.conversations.Exists(con => con.alias == sceneAlias);
+        return this.sceneDialogue.conversations.Exists(con => con.alias == conversationAlias);
     }
 
-    public int GetSceneIdByAlias(string sceneAlias)
+    public List<LinearConversation> GetConversation(int conversationId)
     {
-        if (this.SceneExists(sceneAlias))
+        if (this.ConversationExists(conversationId))
         {
-            return this.sceneDialogue.conversations.Find(con => con.alias == sceneAlias).id;
+            Conversation conversation =  this.sceneDialogue.conversations.Find(con => con.id == conversationId);
+            return this.FlattenDialogue(conversation);
         }
 
-        return -1;
+        return new List<LinearConversation>();
     }
 
-    public void PlayDialogue(int sceneId)
+    public List<LinearConversation> GetConversation(string conversationAlias)
     {
-        if (this.sceneDialogue.conversations.Exists(con => con.id == sceneId))
+        if (this.ConversationExists(conversationAlias))
         {
-            Conversation conversation = this.sceneDialogue.conversations.Find(con => con.id == sceneId);
-            List<LinearDialogue> flatDialogue = this.FlattenDialogue(conversation);
-            this.PlayConversation(flatDialogue);
+            Conversation conversation =  this.sceneDialogue.conversations.Find(con => con.alias == conversationAlias);
+            return this.FlattenDialogue(conversation);
         }
+
+        return new List<LinearConversation>();
     }
 
-    private void PlayConversation(List<LinearDialogue> dialogue)
+    public void PlayNextDialogue(LinearConversation conversation)
     {
-        //Input.GetButtonDown("Submit")
         this.textboxBg.enabled = this.visible;
 
-        switch (dialogue[0].portrait)
+        switch (conversation.portrait)
         {
             case "WilykatPortrait":
                 this.wilykatPortrait.enabled = this.visible;
@@ -112,24 +113,33 @@ public class TextboxManager : MonoBehaviour
                 break;
         }
 
-        this.Title.text = dialogue[0].title;
+        this.Title.text = conversation.title;
         this.Title.enabled = this.visible;
 
-        this.Text.text = dialogue[0].text;
+        this.Text.text = conversation.text;
         this.Text.enabled = this.visible;
         
         this.MoreIndicator.enabled = this.visible;
     }
 
-    private List<LinearDialogue> FlattenDialogue(Conversation conversation)
+    public void Close()
     {
-        List<LinearDialogue> result = new List<LinearDialogue>();
+        List<MaskableGraphic> uiElements = new List<MaskableGraphic>(this.textboxContainer.GetComponentsInChildren<MaskableGraphic>());
+        foreach (var ui in uiElements)
+        {
+            ui.enabled = false;
+        }
+    }
+
+    private List<LinearConversation> FlattenDialogue(Conversation conversation)
+    {
+        List<LinearConversation> result = new List<LinearConversation>();
 
         foreach (var dialogue in conversation.dialogue)
         {
             foreach (var text in dialogue.text)
             {
-                result.Add(new LinearDialogue { title = dialogue.title, portrait = dialogue.portrait, text = text });
+                result.Add(new LinearConversation { title = dialogue.title, portrait = dialogue.portrait, text = text });
             }
         }
 

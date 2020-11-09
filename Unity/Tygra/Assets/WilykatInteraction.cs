@@ -12,12 +12,15 @@ public class WilykatInteraction : MonoBehaviour
     private readonly string sceneAlias = "Wilykit Interaction";
 
     private TextboxManager textboxManager;
+
+    private int currentPage;
     // Use this for initialization
     void Start()
     {
         this.wilykat = gameObject;
         GameObject textboxContainer = GameObject.Find("TextboxContainer");
         this.textboxManager = textboxContainer.GetComponent<TextboxManager>();
+        this.currentPage = 0;
     }
 
     // Update is called once per frame
@@ -25,12 +28,21 @@ public class WilykatInteraction : MonoBehaviour
     {
         if (this.interact && Input.GetButtonDown("Submit"))
         {
-            if (this.textboxManager.SceneExists(this.sceneAlias))
+            if (this.textboxManager.ConversationExists(this.sceneAlias))
             {
-                int sceneId = this.textboxManager.GetSceneIdByAlias(this.sceneAlias);
-                if (sceneId != -1)
+                List<LinearConversation> conversations = this.textboxManager.GetConversation(this.sceneAlias);
+                if (conversations.Count != 0)
                 {
-                    this.textboxManager.PlayDialogue(sceneId);
+                    if (this.currentPage >= conversations.Count)
+                    {
+                        this.textboxManager.Close();
+                        this.currentPage = 0;
+                    }
+                    else
+                    {
+                        this.textboxManager.PlayNextDialogue(conversations[this.currentPage]);
+                        this.currentPage++;
+                    }
                 }
             }
         }

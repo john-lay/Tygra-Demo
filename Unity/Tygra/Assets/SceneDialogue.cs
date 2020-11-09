@@ -22,7 +22,7 @@ public class SceneDialogue
     public List<Conversation> conversations;
 }
 
-public class LinearDialogue
+public class LinearConversation
 {
     public string portrait;
     public string title;
