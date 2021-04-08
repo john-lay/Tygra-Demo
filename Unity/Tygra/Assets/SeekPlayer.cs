@@ -1,14 +1,27 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SeekPlayer : MonoBehaviour
 {
     private GameObject tygra;
     private GameObject monkianContainer;
+    private GameObject refCannonball;
+
+    [SerializeField]
+    private GameObject projectile;
+    private GameObject lastCannonball;
     private GameObject cannonball;
-    float MoveSpeed = 1f;
+    
+    [SerializeField]
+    private float projectileFrequency = 3.0f;
+    
+    [SerializeField]
+    float projectileSpeed = 8.0f;
+    
+    [SerializeField]
     int MaxDist = 10;
+    
+    [SerializeField]
     int MinDist = 5;
 
     // Start is called before the first frame update
@@ -16,15 +29,20 @@ public class SeekPlayer : MonoBehaviour
     {
         this.monkianContainer = gameObject;
         this.tygra = GameObject.Find("Tygra");
-        this.cannonball = transform.Find("Cannonball").gameObject;
-        Debug.Log(cannonball);
+        this.refCannonball = transform.Find("Cannonball").gameObject;
+
+        StartCoroutine(FireCannonball());
     }
 
     // Update is called once per frame
     void Update()
     {
         // CloseInOnTygra();
-        ShootCannonball();
+        MoveCannonball();
+        if (lastCannonball != null)
+        {
+            FadeLastCannonball();
+        }
     }
 
     void CloseInOnTygra()
@@ -33,7 +51,7 @@ public class SeekPlayer : MonoBehaviour
 
         if (Vector3.Distance(monkianContainer.transform.position, tygra.transform.position) >= MinDist)
         {
-            monkianContainer.transform.position += monkianContainer.transform.forward * MoveSpeed * Time.deltaTime;
+            monkianContainer.transform.position += monkianContainer.transform.forward * projectileSpeed * Time.deltaTime;
 
             if (Vector3.Distance(monkianContainer.transform.position, tygra.transform.position) <= MaxDist)
             {
@@ -42,12 +60,43 @@ public class SeekPlayer : MonoBehaviour
         }
     }
 
-
-    void ShootCannonball()
+    private IEnumerator FireCannonball()
     {
+        if (cannonball != null)
+        {
+            lastCannonball = cannonball;
+        }
         monkianContainer.transform.LookAt(tygra.transform);
-
-        cannonball.transform.position += cannonball.transform.forward * MoveSpeed * Time.deltaTime;
+        cannonball = Instantiate(projectile, Vector3.zero, Quaternion.identity);
+        cannonball.transform.position = refCannonball.transform.position;
         
+        yield return new WaitForSeconds(projectileFrequency);
+        StartCoroutine(FireCannonball());
+    }
+
+
+    void MoveCannonball()
+    {
+        if (cannonball.transform.position.y >= 0.3f)
+        {
+            cannonball.transform.LookAt(tygra.transform);
+            var position = cannonball.transform.position;
+            position += cannonball.transform.forward * (projectileSpeed * Time.deltaTime);
+            cannonball.transform.position = position;    
+        }
+    }
+
+    void FadeLastCannonball()
+    {
+        var material = lastCannonball.GetComponent<MeshRenderer>().material;
+        Color newColor = material.color;
+        newColor.a -= Time.deltaTime;
+        material.color = newColor;
+        lastCannonball.GetComponent<MeshRenderer>().material = material;
+        if (material.color.a <= 0.3)
+        {
+            Destroy(lastCannonball);
+        }
+
     }
 }
