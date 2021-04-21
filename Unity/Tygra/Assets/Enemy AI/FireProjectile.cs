@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class SeekPlayer : MonoBehaviour
+public class FireProjectile : MonoBehaviour
 {
     private GameObject tygra;
     private GameObject monkianContainer;
@@ -17,12 +17,6 @@ public class SeekPlayer : MonoBehaviour
     
     [SerializeField]
     float projectileSpeed = 8.0f;
-    
-    [SerializeField]
-    int MaxDist = 10;
-    
-    [SerializeField]
-    int MinDist = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -42,21 +36,6 @@ public class SeekPlayer : MonoBehaviour
         if (lastCannonball != null)
         {
             FadeLastCannonball();
-        }
-    }
-
-    void CloseInOnTygra()
-    {
-        monkianContainer.transform.LookAt(tygra.transform);
-
-        if (Vector3.Distance(monkianContainer.transform.position, tygra.transform.position) >= MinDist)
-        {
-            monkianContainer.transform.position += monkianContainer.transform.forward * projectileSpeed * Time.deltaTime;
-
-            if (Vector3.Distance(monkianContainer.transform.position, tygra.transform.position) <= MaxDist)
-            {
-                //Here Call any function U want Like Shoot at here or something
-            }
         }
     }
 

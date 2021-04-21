@@ -60,6 +60,8 @@
   <ItemGroup>
      <Compile Include="Assets\CoinCounter.cs" />
      <Compile Include="Assets\CollectCoin.cs" />
+     <Compile Include="Assets\Enemy AI\FireProjectile.cs" />
+     <Compile Include="Assets\Enemy AI\SeekAndOrbitPlayer.cs" />
      <Compile Include="Assets\EventManager.cs" />
      <Compile Include="Assets\LiftMovement.cs" />
      <Compile Include="Assets\OrbitCamera.cs" />
@@ -67,7 +69,6 @@
      <Compile Include="Assets\RightClaw.cs" />
      <Compile Include="Assets\RotateCoin.cs" />
      <Compile Include="Assets\SceneDialogue.cs" />
-     <Compile Include="Assets\SeekPlayer.cs" />
      <Compile Include="Assets\TextboxManager.cs" />
      <Compile Include="Assets\ThundertankDriving.cs" />
      <Compile Include="Assets\WilykatInteraction.cs" />
