@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class FireProjectile : MonoBehaviour
@@ -12,18 +13,26 @@ public class FireProjectile : MonoBehaviour
     private GameObject lastCannonball;
     private GameObject cannonball;
     
+    // TODO: this should be linked to the SeekAndOrbitPlayer.cs script's CloseInRadius property
     [SerializeField]
-    private float projectileFrequency = 3.0f;
+    private int FiringRange = 10;
     
     [SerializeField]
-    float projectileSpeed = 8.0f;
+    private float SecondsBetweenShots = 2.0f;
+    
+    [SerializeField]
+    float projectileSpeed = 16.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         this.monkianContainer = gameObject;
         this.tygra = GameObject.Find("Tygra");
-        this.refCannonball = transform.Find("Cannonball").gameObject;
+        // Monkian's shield is attached to his mixamorig:LeftHand
+        this.refCannonball = gameObject.transform
+            .GetComponentsInChildren<Transform>(true)
+            .FirstOrDefault(t => t.name == "Cannonball")
+            ?.gameObject;
 
         StartCoroutine(FireCannonball());
     }
@@ -38,30 +47,42 @@ public class FireProjectile : MonoBehaviour
             FadeLastCannonball();
         }
     }
+    
+    float PlayerEnemyDistance()
+    {
+        return Vector3.Distance(monkianContainer.transform.position, tygra.transform.position);
+    }
 
     private IEnumerator FireCannonball()
     {
-        if (cannonball != null)
+        if (PlayerEnemyDistance() <= FiringRange)
         {
-            lastCannonball = cannonball;
-        }
-        monkianContainer.transform.LookAt(tygra.transform);
-        cannonball = Instantiate(projectile, Vector3.zero, Quaternion.identity);
-        cannonball.transform.position = refCannonball.transform.position;
+            if (cannonball != null)
+            {
+                lastCannonball = cannonball;
+            }
+            monkianContainer.transform.LookAt(tygra.transform);
+            cannonball = Instantiate(projectile, Vector3.zero, Quaternion.identity);
+            cannonball.transform.position = refCannonball.transform.position;
         
-        yield return new WaitForSeconds(projectileFrequency);
+        }
+        
+        yield return new WaitForSeconds(SecondsBetweenShots);
         StartCoroutine(FireCannonball());
     }
 
 
     void MoveCannonball()
     {
-        if (cannonball.transform.position.y >= 0.3f)
+        if (cannonball != null)
         {
-            cannonball.transform.LookAt(tygra.transform);
-            var position = cannonball.transform.position;
-            position += cannonball.transform.forward * (projectileSpeed * Time.deltaTime);
-            cannonball.transform.position = position;    
+            if (cannonball.transform.position.y >= 0.3f)
+            {
+                cannonball.transform.LookAt(tygra.transform);
+                var position = cannonball.transform.position;
+                position += cannonball.transform.forward * (projectileSpeed * Time.deltaTime);
+                cannonball.transform.position = position;    
+            }
         }
     }
 
@@ -76,6 +97,5 @@ public class FireProjectile : MonoBehaviour
         {
             Destroy(lastCannonball);
         }
-
     }
 }
